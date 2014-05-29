@@ -162,6 +162,8 @@ NetPulseView::SetDecayRate(float rate)
 void
 NetPulseView::AttachedToWindow()
 {
+	BView::AttachedToWindow();
+
 	fMessageRunner = new BMessageRunner(BMessenger(this),
 		new BMessage(kMsgUpdate), fUpdateInterval);
 
@@ -180,7 +182,16 @@ NetPulseView::AttachedToWindow()
 			0, B_COLOR_8_BIT);
 	}
 
-	SetViewColor(tint_color(ui_color(B_PANEL_BACKGROUND_COLOR), B_DARKEN_1_TINT));
+	if (Parent() != NULL) {
+		if ((Parent()->Flags() & B_DRAW_ON_CHILDREN) != 0)
+			SetViewColor(B_TRANSPARENT_COLOR);
+		else
+			SetViewColor(Parent()->ViewColor());
+	} else
+		SetViewColor(ui_color(B_PANEL_BACKGROUND_COLOR));
+
+	SetLowColor(ViewColor());
+
 	UpdateColorTable();
 	Update();
 }
