@@ -302,7 +302,7 @@ SettingsFile::Save() const
 	BFile file(fPath.Path(), B_READ_WRITE | B_CREATE_FILE | B_ERASE_FILE);
 	result = file.InitCheck();
 
-	if (result == B_BAD_VALUE) {
+	if (result != B_OK) {
 		// try to create the parent directory if creating the file fails
 		// the first time
 		BPath parent;
