@@ -124,5 +124,9 @@ DRIVER_PATH =
 
 ## include the makefile-engine
 DEVEL_DIRECTORY := \
-	$(shell findpaths -r "makefile_engine" B_FIND_PATH_DEVELOP_DIRECTORY)
+	$(shell if findpaths > /dev/null 2>&1 ; then \
+		findpaths -r "makefile_engine" B_FIND_PATH_DEVELOP_DIRECTORY ; \
+	else \
+		finddir B_SYSTEM_DEVELOP_DIRECTORY ; \
+	fi)
 include $(DEVEL_DIRECTORY)/etc/makefile-engine
