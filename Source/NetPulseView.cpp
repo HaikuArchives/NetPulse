@@ -245,6 +245,14 @@ NetPulseView::MessageReceived(BMessage* message)
 			if (fMessenger->SendMessage(&message) != B_OK)
 				fMessenger = NULL;
 		}
+		SettingsFile settings("Settings", "NetPulse");
+		settings.AddInt32("Interface", fCookie);
+		settings.AddInt32("InputColor", *((int32 *) &fInputColor));
+		settings.AddInt32("OutputColor", *((int32 *) &fOutputColor));
+		settings.AddFloat("DecayRate", fDecayRate);
+		settings.AddInt64("UpdateInterval", fUpdateInterval);
+		settings.Save();
+		
 	} else if (message->what == kMsgStatistics) {
 		if (fMessenger == NULL || !fMessenger->IsValid()) {
 			BRect frame(BScreen().Frame());
