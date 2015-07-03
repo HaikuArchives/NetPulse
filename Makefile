@@ -35,12 +35,12 @@ SRCS= Source/NetPulse.cpp Source/NetPulseView.cpp \
 
 #	specify the resource definition files to use
 #	full path or a relative path to the resource file can be used.
-#RDEFS=
+RDEFS= Resources/NetPulse.rdef
 
 #	specify the resource files to use.
 #	full path or a relative path to the resource file can be used.
 #	both RDEFS and RSRCS can be defined in the same makefile.
-RSRCS= Resources/NetPulse.rsrc
+RSRCS=
 
 # @<-src@
 #%}
