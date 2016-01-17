@@ -182,15 +182,15 @@ NetPulseView::AttachedToWindow()
 			0, B_COLOR_8_BIT);
 	}
 
-	if (Parent() != NULL) {
-		if ((Parent()->Flags() & B_DRAW_ON_CHILDREN) != 0)
-			SetViewColor(B_TRANSPARENT_COLOR);
-		else
-			SetViewColor(Parent()->ViewColor());
-	} else
-		SetViewColor(ui_color(B_PANEL_BACKGROUND_COLOR));
+	AdoptParentColors();
 
-	SetLowColor(ViewColor());
+	float tint = B_NO_TINT;
+	color_which which = ViewUIColor(&tint);
+
+	if (which == B_NO_COLOR)
+		SetLowUIColor(B_PANEL_BACKGROUND_COLOR);
+	else
+		SetLowUIColor(which, tint);
 
 	UpdateColorTable();
 	Update();
