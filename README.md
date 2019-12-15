@@ -1,5 +1,5 @@
-# NetPulse
-## by Carlos Hasan.
+## NetPulse
+by Carlos Hasan.
 
 ![Screenshot of NetPulse](netpulse.png)
 
