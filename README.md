@@ -1,5 +1,7 @@
-# NetPulse
-## by Carlos Hasan.
+## NetPulse
+by Carlos Hasan.
+
+![Screenshot of NetPulse](netpulse.png)
 
 ### Version History
 * 0.2.2 Initial release
