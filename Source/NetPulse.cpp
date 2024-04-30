@@ -31,11 +31,16 @@ NetPulse::ReadyToRun()
 	entry_ref entry;
 
 	if (!deskbar.HasItem("NetPulseView")) {
-		if (be_roster->FindApp(kAppSignature, &entry) != B_OK ||
-			deskbar.AddItem(&entry) != B_OK) {
+		if (be_roster->FindApp(kAppSignature, &entry) != B_OK || deskbar.AddItem(&entry) != B_OK) {
 			BAlert *alert = new BAlert("Error",
-				"Can't install NetPulse in the Deskbar!",
-				"Damn", NULL, NULL, B_WIDTH_AS_USUAL, B_OFFSET_SPACING, B_STOP_ALERT);
+				                       "Can't install NetPulse in the Deskbar!",
+				                       "Damn", 
+                                       NULL, 
+                                       NULL, 
+                                       B_WIDTH_AS_USUAL,
+                                       B_OFFSET_SPACING,
+                                       B_STOP_ALERT);
+                                       
 			alert->Go();
 		}
 	}
@@ -44,15 +49,14 @@ NetPulse::ReadyToRun()
 }
 
 
-extern "C" _EXPORT BView *instantiate_deskbar_item()
-{
+extern "C" _EXPORT BView *instantiate_deskbar_item() {
 	return new NetPulseView("NetPulseView");
 }
 
 
-int main()
-{
+int main() {
 	NetPulse application;
 	application.Run();
+    
 	return 0;
 }

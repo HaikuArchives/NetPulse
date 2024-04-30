@@ -26,25 +26,21 @@ NetPulseStatsView::NetPulseStatsView(const char* name, int32 index)
 	fCollisionsView(new BStringView("Collisions", "0")),
 	fErrorsView(new BStringView("Errors", "0"))
 {
-	BStringView* connectedToLabel
-		= new BStringView("ConnectedToLabel", "Connected to:");
+	BStringView* connectedToLabel = new BStringView("ConnectedToLabel", "Connected to:");
 	connectedToLabel->SetAlignment(B_ALIGN_RIGHT);
 
-	BStringView* elapsedTimeLabel
-		= new BStringView("ElappsedTimeLabel", "Elapsed time:");
+	BStringView* elapsedTimeLabel = new BStringView("ElappsedTimeLabel", "Elapsed time:");
 	elapsedTimeLabel->SetAlignment(B_ALIGN_RIGHT);
 
 	fConnectedToView->SetAlignment(B_ALIGN_LEFT);
 	fElapsedTimeView->SetAlignment(B_ALIGN_RIGHT);
 
-	BStringView* localAddressLabel
-		= new BStringView("LocalAddressLabel", "IP address:");
+	BStringView* localAddressLabel = new BStringView("LocalAddressLabel", "IP address:");
 	localAddressLabel->SetAlignment(B_ALIGN_RIGHT);
 
 	fLocalAddressView->SetAlignment(B_ALIGN_RIGHT);
 
-	BBox* status = new BBox(B_FANCY_BORDER,
-		BLayoutBuilder::Grid<>(B_USE_DEFAULT_SPACING, B_USE_SMALL_SPACING)
+	BBox* status = new BBox(B_FANCY_BORDER, BLayoutBuilder::Grid<>(B_USE_DEFAULT_SPACING, B_USE_SMALL_SPACING)
 			.Add(connectedToLabel, 0, 0)
 			.AddGlue(1, 0)
 			.Add(fConnectedToView, 2, 0)
@@ -55,31 +51,27 @@ NetPulseStatsView::NetPulseStatsView(const char* name, int32 index)
 			.AddGlue(1, 2)
 			.Add(fLocalAddressView, 2, 2)
 			.SetInsets(B_USE_DEFAULT_SPACING)
-		.View());
+		    .View());
+            
 	status->SetLabel("Status");
 
-	BStringView* oBytesLabel
-		= new BStringView("OBytesLabel", "Bytes sent:");
+	BStringView* oBytesLabel = new BStringView("OBytesLabel", "Bytes sent:");
 	oBytesLabel->SetAlignment(B_ALIGN_RIGHT);
-	fOBytesView->SetAlignment(B_ALIGN_RIGHT);
+    fOBytesView->SetAlignment(B_ALIGN_RIGHT);
 
-	BStringView* iBytesLabel
-		= new BStringView("IBytesLabel", "Bytes received:");
+	BStringView* iBytesLabel = new BStringView("IBytesLabel", "Bytes received:");
 	iBytesLabel->SetAlignment(B_ALIGN_RIGHT);
-	fIBytesView->SetAlignment(B_ALIGN_RIGHT);
+    fIBytesView->SetAlignment(B_ALIGN_RIGHT);
 
-	BStringView* oPacketsLabel
-		= new BStringView("OPacketsLabel", "Packets sent:");
+	BStringView* oPacketsLabel = new BStringView("OPacketsLabel", "Packets sent:");
 	oPacketsLabel->SetAlignment(B_ALIGN_RIGHT);
 	fOPacketsView->SetAlignment(B_ALIGN_RIGHT);
 
-	BStringView* iPacketsLabel
-		= new BStringView("IPacketsLabel", "Packets received:");
+	BStringView* iPacketsLabel = new BStringView("IPacketsLabel", "Packets received:");
 	iPacketsLabel->SetAlignment(B_ALIGN_RIGHT);
 	fIPacketsView->SetAlignment(B_ALIGN_RIGHT);
 
-	BBox* sentReceived = new BBox(B_FANCY_BORDER,
-		BLayoutBuilder::Grid<>(B_USE_DEFAULT_SPACING, B_USE_SMALL_SPACING)
+	BBox* sentReceived = new BBox(B_FANCY_BORDER, BLayoutBuilder::Grid<>(B_USE_DEFAULT_SPACING, B_USE_SMALL_SPACING)
 			.Add(oBytesLabel, 0, 0)
 			.Add(fOBytesView, 1, 0)
 			.AddGlue(2, 0)
@@ -91,11 +83,11 @@ NetPulseStatsView::NetPulseStatsView(const char* name, int32 index)
 			.Add(iPacketsLabel, 3, 1)
 			.Add(fIPacketsView, 4, 1)
 			.SetInsets(B_USE_DEFAULT_SPACING)
-		.View());
+		    .View());
+            
 	sentReceived->SetLabel("Sent/Received");
 
-	BStringView* collisionsLabel
-		= new BStringView("CollisionsLabel", "Collisions:");
+	BStringView* collisionsLabel = new BStringView("CollisionsLabel", "Collisions:");
 	collisionsLabel->SetAlignment(B_ALIGN_RIGHT);
 	fCollisionsView->SetAlignment(B_ALIGN_RIGHT);
 
@@ -103,8 +95,7 @@ NetPulseStatsView::NetPulseStatsView(const char* name, int32 index)
 	errorsLabel->SetAlignment(B_ALIGN_RIGHT);
 	fErrorsView->SetAlignment(B_ALIGN_RIGHT);
 
-	BBox* errors = new BBox(B_FANCY_BORDER,
-		BLayoutBuilder::Grid<>(B_USE_DEFAULT_SPACING, B_USE_SMALL_SPACING)
+	BBox* errors = new BBox(B_FANCY_BORDER, BLayoutBuilder::Grid<>(B_USE_DEFAULT_SPACING, B_USE_SMALL_SPACING)
 			.Add(collisionsLabel, 0, 0)
 			.AddGlue(1, 0)
 			.Add(fCollisionsView, 2, 0)
@@ -112,7 +103,8 @@ NetPulseStatsView::NetPulseStatsView(const char* name, int32 index)
 			.AddGlue(4, 0)
 			.Add(fErrorsView, 5, 0)
 			.SetInsets(B_USE_DEFAULT_SPACING)
-		.View());
+		    .View());
+            
 	errors->SetLabel("Errors");
 
 	BLayoutBuilder::Group<>(this, B_VERTICAL)
@@ -150,10 +142,13 @@ void
 NetPulseStatsView::MessageReceived(BMessage* message)
 {
 	if (message->what == kMsgChangeInterface) {
-		if (message->FindInt32("interface_index", (int32*)&fCookie) != B_OK)
+		if (message->FindInt32("interface_index", (int32*)&fCookie) != B_OK) {
 			fCookie = 0;
-	} else if (message->what == kMsgQuit)
+        }
+	} 
+    else if (message->what == kMsgQuit) {
 		Window()->Quit();
+    }
 	else
 		BView::MessageReceived(message);
 }
@@ -169,7 +164,8 @@ NetPulseStatsView::Pulse()
 	uint32 cookie = fCookie;
 
 	result = roster.GetNextInterface(&cookie, interface);
-	if (result != B_OK) {
+	
+    if (result != B_OK) {
 		fprintf(stderr, "error getting interface: %s\n", strerror(result));
 		return;
 	}	
@@ -177,11 +173,13 @@ NetPulseStatsView::Pulse()
 	// time
 	if ((interface.Flags() & IFF_UP) != 0) {
 		bigtime_t elapsedTime = system_time() - interface.MTU();
-		sprintf(buffer, "%02ld:%02ld:%02ld",
+		
+        sprintf(buffer, "%02d:%02d:%02d",
 			int32(elapsedTime / (60 * 60 * 1000000LL)) % 24,
 			int32(elapsedTime / (     60 * 1000000LL)) % 60,
 			int32(elapsedTime /            1000000LL ) % 60);
-	} else
+	} 
+    else
 		sprintf(buffer, "N/A");
 
 	fElapsedTimeView->SetText(buffer);
@@ -194,32 +192,41 @@ NetPulseStatsView::Pulse()
 
 	// IP address
 	BNetworkInterfaceAddress address;
-	result = interface.GetAddressAt(0, address);
-	if (result != B_OK)
+	
+    result = interface.GetAddressAt(0, address);
+	
+    if (result != B_OK) {
 		fprintf(stderr, "error getting IP address: %s\n", strerror(result));
-	else
+    }
+	else {
 		fLocalAddressView->SetText(address.Address().ToString().String());
-
+    }
+    
 	ifreq_stats stats;
-	result = interface.GetStats(stats);
-	if (result != B_OK)
+	
+    result = interface.GetStats(stats);
+	
+    if (result != B_OK) {
 		fprintf(stderr, "error getting stats: %s\n", strerror(result));
-
+    }
+    
 	ifreq_stats otherStats;
+    
 	status_t otherResult = fInterface.GetStats(otherStats);
-	if (otherResult != B_OK) {
-		fprintf(stderr, "error getting other stats: %s\n",
-			strerror(otherResult));
+	
+    if (otherResult != B_OK) {
+		fprintf(stderr, "error getting other stats: %s\n", strerror(otherResult));
 	}
 
 	if (result == B_OK && otherResult == B_OK) {
 		// bytes
 		if (stats.receive.bytes != otherStats.receive.bytes) {
-			sprintf(buffer, "%lld", stats.receive.bytes);
+			sprintf(buffer, "%lu", stats.receive.bytes);
 			fIBytesView->SetText(buffer);
 		}
-		if (stats.send.bytes != otherStats.send.bytes) {
-			sprintf(buffer, "%lld", stats.send.bytes);
+		
+        if (stats.send.bytes != otherStats.send.bytes) {
+			sprintf(buffer, "%lu", stats.send.bytes);
 			fOBytesView->SetText(buffer);
 		}
 
@@ -228,7 +235,8 @@ NetPulseStatsView::Pulse()
 			sprintf(buffer, "%d", stats.receive.packets);
 			fIPacketsView->SetText(buffer);
 		}
-		if (stats.send.packets != otherStats.send.packets) {
+		
+        if (stats.send.packets != otherStats.send.packets) {
 			sprintf(buffer, "%d", stats.send.packets);
 			fOPacketsView->SetText(buffer);
 		}
@@ -238,8 +246,9 @@ NetPulseStatsView::Pulse()
 			sprintf(buffer, "%d", stats.send.dropped);
 			fCollisionsView->SetText(buffer);
 		}
+        
 		if (stats.receive.errors != otherStats.receive.errors
-			|| stats.send.errors != stats.send.errors) {
+			|| stats.send.errors != otherStats.send.errors) {
 			sprintf(buffer, "%d", stats.receive.errors + stats.send.errors);
 			fErrorsView->SetText(buffer);
 		}

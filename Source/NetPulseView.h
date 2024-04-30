@@ -11,7 +11,7 @@
 #include "NetPulseStatsView.h"
 
 
-const int32 kColorLevels			= 32;
+const int32 kColorLevels = 32;
 
 
 class _EXPORT NetPulseView : public BView {
