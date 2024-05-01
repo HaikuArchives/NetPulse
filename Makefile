@@ -8,6 +8,7 @@
 
 # specify the name of the binary
 NAME= NetPulse
+TARGET_DIR = ./app
 
 # specify the type of binary
 #	APP:	Application
