@@ -44,9 +44,9 @@ NetPulse::ReadyToRun()
 }
 
 
-extern "C" _EXPORT BView *instantiate_deskbar_item()
+extern "C" _EXPORT BView *instantiate_deskbar_item(float /*maxWidth*/, float maxHeight)
 {
-	return new NetPulseView("NetPulseView");
+	return new NetPulseView(maxHeight);
 }
 
 

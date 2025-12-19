@@ -30,10 +30,10 @@ static const bigtime_t kDefaultUpdateInterval = 250000LL;
 static const float kDefaultDecayRate = 0.90;
 
 
-NetPulseView::NetPulseView(const char* name)
+NetPulseView::NetPulseView(float maxHeight)
 	:
-	BView(BRect(0, 0, C_MODEM_ICON_WIDTH - 1, C_MODEM_ICON_HEIGHT - 1),
-		name, B_FOLLOW_ALL_SIDES, B_WILL_DRAW),
+	BView(BRect(0, 0, maxHeight - 1, maxHeight - 1),
+		"NetPulseView", B_FOLLOW_ALL_SIDES, B_WILL_DRAW),
 	fMessenger(NULL),
 	fMessageRunner(NULL),
 	fModemDownBitmap(NULL),
@@ -282,14 +282,14 @@ NetPulseView::Draw(BRect updateRect)
 	if (fEnable) {
 		SetDrawingMode(B_OP_OVER);
 		if (fModemUpBitmap != NULL)
-			DrawBitmapAsync(fModemUpBitmap, BPoint(0, 0));
+			DrawBitmapAsync(fModemUpBitmap, fModemUpBitmap->Bounds(), Bounds());
 	} else {
 		SetHighColor(ViewColor());
 		FillRect(updateRect);
 
 		SetDrawingMode(B_OP_OVER);
 		if (fModemDownBitmap != NULL)
-			DrawBitmapAsync(fModemDownBitmap, BPoint(0, 0));
+			DrawBitmapAsync(fModemDownBitmap, fModemDownBitmap->Bounds(), Bounds());
 	}
 }
 

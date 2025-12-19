@@ -16,7 +16,7 @@ const int32 kColorLevels			= 32;
 
 class _EXPORT NetPulseView : public BView {
 public:
-								NetPulseView(const char* name);
+								NetPulseView(float maxHeight);
 								NetPulseView(BMessage* message);
 	virtual						~NetPulseView();
 
